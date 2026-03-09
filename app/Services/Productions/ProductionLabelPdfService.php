@@ -1,0 +1,44 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Services\Productions;
+
+use App\Enums\ProductionLabelType;
+use App\Models\ProductionBatch;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Response;
+use Illuminate\Support\Str;
+
+class ProductionLabelPdfService
+{
+    public function __construct(
+        protected ProductionLabelDataService $productionLabelDataService,
+    ) {}
+
+    public function stream(ProductionBatch $productionBatch, ProductionLabelType $type): Response
+    {
+        $data = $this->productionLabelDataService->build($productionBatch);
+        $view = $type->view();
+        $fileName = sprintf(
+            '%s-%s-%s.pdf',
+            Str::slug($type->label(), '-'),
+            Str::slug((string) ($data['nome_prodotto'] ?? 'prodotto'), '-'),
+            Str::slug((string) ($data['lotto'] ?? 'lotto'), '-'),
+        );
+
+        return Pdf::loadView($view, $data)
+            ->setPaper($this->paper($type))
+            ->stream($fileName);
+    }
+
+    protected function paper(ProductionLabelType $type): array
+    {
+        return match ($type) {
+            ProductionLabelType::Completa => [0, 0, 595.28, 841.89],
+            ProductionLabelType::Bancone => [0, 0, 595.28, 420.94],
+            ProductionLabelType::ConfezioneMini => [0, 0, 175.75, 86.40],
+            ProductionLabelType::Spedizione => [0, 0, 283.46, 198.43],
+        };
+    }
+}
