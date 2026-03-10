@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <title>Etichetta spedizione</title>
+    <style>
+        @page { size: 100mm 70mm; margin: 2mm; }
+        body { font-family: DejaVu Sans, sans-serif; margin: 0; color: #111; font-size: 5.3px; line-height: 1.08; }
+        .sheet { border: 1.8px solid #111; padding: 1.5mm; box-sizing: border-box; height: 63mm; overflow: hidden; }
+        .top { width: 100%; border-collapse: collapse; }
+        .top td { vertical-align: top; }
+        .logo-wrap { width: 30mm; height: 8mm; }
+        .logo { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; }
+        .title { text-align: right; font-size: 7.2px; font-weight: 700; text-transform: uppercase; line-height: 1.03; }
+        .meta { margin-top: 0.7mm; line-height: 1.08; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .meta strong { font-weight: 700; }
+        .desc { margin-top: 0.8mm; border: 1px solid #d1d5db; background: #f9fafb; padding: 0.8mm; line-height: 1.1; max-height: 7.6mm; overflow: hidden; }
+        .allergen-box { margin-top: 0.8mm; border: 1.6px solid #111; background: #fff7ed; padding: 0.8mm; height: 16.5mm; overflow: hidden; }
+        .allergen-title { font-size: 5.1px; font-weight: 700; text-transform: uppercase; }
+        .allergen-list { margin-top: 0.2mm; font-size: 5.2px; font-weight: 700; line-height: 1.1; white-space: normal; word-break: break-word; }
+        .icons { margin-top: 0.4mm; max-height: 4mm; overflow: hidden; }
+        .icon { display: inline-block; width: 3.8mm; height: 3.8mm; margin-right: 0.7mm; margin-bottom: 0.2mm; vertical-align: middle; }
+        .icon img { width: 100%; height: 100%; object-fit: contain; display: block; }
+        .ingredients { margin-top: 0.8mm; border: 1px solid #111; padding: 0.8mm; max-height: 15.5mm; overflow: hidden; }
+        .ingredients-title { font-weight: 700; text-transform: uppercase; }
+        .ingredients-text { margin-top: 0.2mm; line-height: 1.1; }
+    </style>
+</head>
+<body>
+<div class="sheet">
+    <table class="top">
+        <tr>
+            <td>
+                            </td>
+            <td class="title">X</td>
+        </tr>
+    </table>
+
+    <div class="meta">
+        <strong>Lotto:</strong> L1 |
+        <strong>Prodotto il:</strong> 10/03/2026 |
+        <strong>Scadenza:</strong> 11/03/2026 |
+        <strong>Peso:</strong> 1,00 g |
+        <strong>Prezzo pubblico/kg:</strong> 1,00 EUR
+    </div>
+
+    <div class="desc">
+        <strong>DESCRIZIONE:</strong>
+        x
+    </div>
+
+    <div class="allergen-box">
+        <div class="allergen-title">CONTIENE ALLERGENI</div>
+        <div class="allergen-list">Latte</div>
+                    </div>
+
+    <div class="ingredients">
+        <div class="ingredients-title">Ingredienti e tracciabilita</div>
+        <div class="ingredients-text">A (1,000 g, lotto l, scad 10/03/2026)</div>
+            </div>
+</div>
+</body>
+</html>

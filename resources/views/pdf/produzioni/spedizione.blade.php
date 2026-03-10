@@ -4,36 +4,58 @@
     <meta charset="utf-8">
     <title>Etichetta spedizione</title>
     <style>
-        @page { margin: 5mm; }
-        body { font-family: DejaVu Sans, sans-serif; margin: 0; color: #111; font-size: 10px; }
-        .sheet { border: 2px solid #111; padding: 8px; }
+        @page { size: 100mm 70mm; margin: 2mm; }
+        body { margin: 0; font-size: 0; }
+        .sheet { font-family: DejaVu Sans, sans-serif; color: #111; font-size: 5.3px; line-height: 1.08; border: 1.2px solid #111; padding: 1.2mm; box-sizing: border-box; }
         .top { width: 100%; border-collapse: collapse; }
         .top td { vertical-align: top; }
-        .logo { width: 130px; max-height: 42px; object-fit: contain; }
-        .title { text-align: right; font-size: 18px; font-weight: 700; text-transform: uppercase; line-height: 1.1; }
-        .meta { margin-top: 6px; line-height: 1.35; }
+        .logo-wrap { width: 30mm; height: 8mm; }
+        .logo { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; }
+        .title { text-align: right; font-size: 7.2px; font-weight: 700; text-transform: uppercase; line-height: 1.03; }
+        .meta { margin-top: 0.7mm; line-height: 1.08; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .meta strong { font-weight: 700; }
-        .desc { margin-top: 7px; border: 1px solid #d1d5db; background: #f9fafb; padding: 6px; font-size: 9px; line-height: 1.35; }
-        .allergen-box { margin-top: 7px; border: 2px solid #111; background: #fff7ed; padding: 6px; }
-        .allergen-title { font-size: 12px; font-weight: 700; text-transform: uppercase; }
-        .allergen-list { margin-top: 3px; font-size: 11px; font-weight: 700; line-height: 1.35; }
-        .icons { margin-top: 4px; }
-        .icon { display: inline-block; width: 46px; margin-right: 5px; margin-bottom: 5px; text-align: center; vertical-align: top; }
-        .icon img { width: 22px; height: 22px; object-fit: contain; display: block; margin: 0 auto 2px; }
-        .icon-code { font-size: 7px; font-weight: 700; }
-        .table { width: 100%; border-collapse: collapse; margin-top: 8px; }
-        .table th, .table td { border-bottom: 1px solid #111; padding: 3px 2px; font-size: 8.4px; }
-        .table th { text-align: left; font-weight: 700; }
-        .num { text-align: right; white-space: nowrap; }
+        .desc { margin-top: 0.8mm; border: 1px solid #d1d5db; background: #f9fafb; padding: 0.8mm; line-height: 1.1; max-height: 7.6mm; overflow: hidden; }
+        .allergen-box { margin-top: 0.8mm; border: 1.6px solid #111; background: #fff7ed; padding: 0.8mm; }
+        .allergen-title { font-size: 5.1px; font-weight: 700; text-transform: uppercase; }
+        .allergen-list { margin-top: 0.2mm; font-size: 5.2px; font-weight: 700; line-height: 1.1; white-space: normal; word-break: break-word; }
+        .icons { margin-top: 0.4mm; max-height: 4mm; overflow: hidden; }
+        .icon { display: inline-block; width: 3.8mm; height: 3.8mm; margin-right: 0.7mm; margin-bottom: 0.2mm; vertical-align: middle; }
+        .icon img { width: 100%; height: 100%; object-fit: contain; display: block; }
+        .ingredients { margin-top: 0.8mm; border: 1px solid #111; padding: 0.8mm; max-height: 13.5mm; overflow: hidden; }
+        .ingredients-title { font-weight: 700; text-transform: uppercase; }
+        .ingredients-text { margin-top: 0.2mm; line-height: 1.1; }
     </style>
 </head>
 <body>
+@php
+    $descrizioneCompatta = trim((string) preg_replace('/\s+/', ' ', (string) $descrizione));
+    $descrizioneCompatta = \Illuminate\Support\Str::limit($descrizioneCompatta !== '' ? $descrizioneCompatta : 'N/D', 120);
+    $allergeniContieneCompatti = $allergeni_contiene !== [] ? implode(', ', $allergeni_contiene) : 'NESSUNO';
+    $allergeniPuoContenereCompatti = $allergeni_puo_contenere !== [] ? implode(', ', $allergeni_puo_contenere) : null;
+    $iconeAllergeni = $allergeni_contiene_items ?? [];
+    $ingredientiSpedizione = array_slice($ingredienti ?? [], 0, 5);
+    $ingredientiSpedizioneTesto = collect($ingredientiSpedizione)
+        ->map(fn (array $item): string => sprintf(
+            '%s (%s %s, lotto %s, scad %s)',
+            (string) ($item['nome'] ?? ''),
+            number_format((float) ($item['quantita'] ?? 0), 3, ',', '.'),
+            (string) ($item['unita'] ?? ''),
+            (string) ($item['lotto'] ?? 'N/D'),
+            (string) ($item['scadenza'] ?? 'N/D'),
+        ))
+        ->filter()
+        ->implode('; ');
+    $ingredientiSpedizioneTesto = \Illuminate\Support\Str::limit($ingredientiSpedizioneTesto !== '' ? $ingredientiSpedizioneTesto : 'N/D', 170);
+    $ingredientiRestanti = max(0, count($ingredienti ?? []) - count($ingredientiSpedizione));
+@endphp
 <div class="sheet">
     <table class="top">
         <tr>
             <td>
                 @if (! empty($logo_path))
-                    <img class="logo" src="{{ $logo_path }}" alt="Logo">
+                    <div class="logo-wrap">
+                        <img class="logo" src="{{ $logo_path }}" alt="Logo">
+                    </div>
                 @endif
             </td>
             <td class="title">{{ $nome_prodotto }}</td>
@@ -49,51 +71,37 @@
     </div>
 
     <div class="desc">
-        <strong>DESCRIZIONE:</strong><br>
-        {!! nl2br(e($descrizione !== '' ? $descrizione : 'N/D')) !!}
+        <strong>DESCRIZIONE:</strong>
+        {{ $descrizioneCompatta }}
     </div>
 
     <div class="allergen-box">
         <div class="allergen-title">CONTIENE ALLERGENI</div>
-        <div class="allergen-list">{{ $allergeni_contiene !== [] ? implode(', ', $allergeni_contiene) : 'NESSUNO' }}</div>
-        @if ($allergeni_contiene_items !== [])
+        <div class="allergen-list">{{ $allergeniContieneCompatti }}</div>
+        @if ($iconeAllergeni !== [])
             <div class="icons">
-                @foreach ($allergeni_contiene_items as $item)
+                @foreach ($iconeAllergeni as $item)
                     <div class="icon">
                         @if (! empty($item['icon_path']))
                             <img src="{{ $item['icon_path'] }}" alt="{{ $item['name'] }}">
                         @endif
-                        <div class="icon-code">{{ $item['code'] !== '' ? $item['code'] : $item['name'] }}</div>
                     </div>
                 @endforeach
             </div>
         @endif
-        <div class="allergen-title" style="margin-top: 3px;">PUO CONTENERE TRACCE DI</div>
-        <div class="allergen-list">{{ $allergeni_puo_contenere !== [] ? implode(', ', $allergeni_puo_contenere) : 'NESSUNO' }}</div>
+        @if ($allergeniPuoContenereCompatti !== null)
+            <div class="allergen-title" style="margin-top: 0.4mm;">PUO CONTENERE TRACCE DI</div>
+            <div class="allergen-list">{{ $allergeniPuoContenereCompatti }}</div>
+        @endif
     </div>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Ingrediente</th>
-            <th class="num">Qta</th>
-            <th>Unita</th>
-            <th>Lotto</th>
-            <th>Scadenza</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach ($ingredienti as $ingrediente)
-            <tr>
-                <td>{{ $ingrediente['nome'] }}</td>
-                <td class="num">{{ number_format((float) $ingrediente['quantita'], 4, ',', '.') }}</td>
-                <td>{{ $ingrediente['unita'] }}</td>
-                <td>{{ $ingrediente['lotto'] }}</td>
-                <td>{{ $ingrediente['scadenza'] ?? 'N/D' }}</td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
+    <div class="ingredients">
+        <div class="ingredients-title">Ingredienti e tracciabilita</div>
+        <div class="ingredients-text">{{ $ingredientiSpedizioneTesto }}</div>
+        @if ($ingredientiRestanti > 0)
+            <div class="ingredients-text">+{{ $ingredientiRestanti }} ingredienti aggiuntivi</div>
+        @endif
+    </div>
 </div>
 </body>
 </html>
