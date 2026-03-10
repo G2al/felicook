@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Users\Schemas;
 
+use App\Models\Recipe;
 use App\Services\Productions\ProductionBatchService;
 use App\Services\Productions\ProductionLotCodeService;
 use Carbon\Carbon;
@@ -47,6 +48,7 @@ class ProductionBatchForm
                                     ->afterStateUpdated(function (?string $state, Set $set, Get $get): void {
                                         if (blank($state)) {
                                             $set('items', []);
+                                            $set('notes', null);
                                             return;
                                         }
 
@@ -55,6 +57,7 @@ class ProductionBatchForm
                                             self::dateString($get('expires_at')),
                                         );
                                         $set('items', $items);
+                                        $set('notes', Recipe::query()->whereKey((int) $state)->value('description'));
 
                                         if ((float) ($get('produced_weight') ?? 0) <= 0) {
                                             $payload = self::preview($get);
