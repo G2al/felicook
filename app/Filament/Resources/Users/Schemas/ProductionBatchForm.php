@@ -236,8 +236,16 @@ class ProductionBatchForm
 
     protected static function allergensText(array $snapshot): string
     {
-        $contains = array_filter(array_map('strval', $snapshot['contains'] ?? []));
-        $mayContain = array_filter(array_map('strval', $snapshot['may_contain'] ?? []));
+        $contains = array_filter(array_map(
+            fn($item) => is_array($item) ? (string) ($item['name'] ?? '') : (string) $item,
+            $snapshot['contains'] ?? []
+        ));
+
+        $mayContain = array_filter(array_map(
+            fn($item) => is_array($item) ? (string) ($item['name'] ?? '') : (string) $item,
+            $snapshot['may_contain'] ?? []
+        ));
+
         $parts = [];
 
         if ($contains !== []) {
