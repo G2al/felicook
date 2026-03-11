@@ -7,22 +7,24 @@
 <style>
 
 @page {
-     size: 103mm 164mm;
+    size: 103mm 164mm;
     margin: 2mm;
 }
 
 body{
+    font-family: "Helvetica Neue", Arial, sans-serif;
     margin:0;
-    font-family: DejaVu Sans, sans-serif;
-    font-size:6px;
     color:#111;
+    font-size:11px;
 }
 
-/* CONTENITORE */
+/* CARD */
 
 .sheet{
-    border:1.5px solid #111;
-    padding:1.5mm;
+    border:2px solid #111;
+    background:#fff;
+    padding:3mm;
+    box-sizing:border-box;
 }
 
 /* HEADER */
@@ -36,85 +38,85 @@ body{
     vertical-align:top;
 }
 
-.logo-wrap {
-    width:9mm;
-    height:7mm;
+.logo-wrap{
+    width:20mm;
+    height:10mm;
 }
 
-.logo {
+.logo{
     width:100%;
     height:auto;
+    margin-top: -15px;
 }
 
 .title{
     text-align:right;
-    font-size:8px;
+    font-size:20px;
     font-weight:900;
     text-transform:uppercase;
+    line-height:1.05;
 }
 
 /* META */
 
 .meta{
-    margin-top:1mm;
-    line-height:1.2;
-}
-
-.meta strong{
-    font-weight:700;
+    margin-top:12px;
+    line-height:1.35;
 }
 
 /* DESCRIZIONE */
 
 .desc{
-    margin-top:1mm;
+    margin-top:16px;
     border:1px solid #d1d5db;
     background:#f9fafb;
-    padding:1mm;
-    line-height:1.2;
+    padding:7px;
+    line-height:1.38;
+    font-size:11px;
 }
 
 /* ALLERGENI */
 
 .allergen-box{
-    margin-top:1mm;
-    border:1.6px solid #111;
+    margin-top:12px;
+    border:2px solid #111;
+    padding:6px;
     background:#fff7ed;
-    padding:1mm;
 }
 
 .allergen-title{
-    font-weight:800;
+    font-size:11px;
+    font-weight:900;
     text-transform:uppercase;
 }
 
 .allergen-list{
-    margin-top:0.3mm;
-    font-weight:700;
+    margin-top:4px;
+    font-size:10px;
+    font-weight:850;
 }
 
 /* ICONS */
 
 .icons{
-    margin-top:2mm;
+    margin-top:8px;
 }
 
 .icon{
     display:inline-block;
-    width:4mm;
-    height:4mm;
-    margin-right:0.6mm;
+    width:34px;
+    margin-right:6px;
 }
 
 .icon img{
-    width:100%;
-    height:100%;
+    width:18px;
+    height:18px;
 }
 
-/* NUTRIZIONALI */
+/* TABELLA NUTRIZIONALE */
 
 .nutritional{
-    margin-top:1mm;
+    margin-top:16px;
 }
 
 .table{
@@ -125,8 +127,8 @@ body{
 .table th,
 .table td{
     border:1px solid #111;
-    padding:0.6mm;
-    font-size:5.6px;
+    padding:4px;
+    font-size:10px;
 }
 
 .table th{
@@ -139,7 +141,6 @@ body{
 }
 
 </style>
-
 </head>
 
 <body>
@@ -150,13 +151,11 @@ body{
 <tr>
 
 <td>
-
 @if (!empty($logo_path))
 <div class="logo-wrap">
 <img class="logo" src="{{ $logo_path }}">
 </div>
 @endif
-
 </td>
 
 <td class="title">
@@ -181,9 +180,7 @@ body{
 
 <div class="allergen-box">
 
-<div class="allergen-title">
-CONTIENE ALLERGENI
-</div>
+<div class="allergen-title">CONTIENE ALLERGENI</div>
 
 <div class="allergen-list">
 {{ $allergeni_contiene !== [] ? implode(', ', $allergeni_contiene) : 'NESSUNO' }}
@@ -192,26 +189,22 @@ CONTIENE ALLERGENI
 @if ($allergeni_contiene_items !== [])
 
 <div class="icons">
-
 @foreach ($allergeni_contiene_items as $item)
 
 <div class="icon">
-
 @if (! empty($item['icon_path']))
 <img src="{{ $item['icon_path'] }}">
 @endif
-
 </div>
 
 @endforeach
-
 </div>
 
 @endif
 
 @if ($allergeni_puo_contenere !== [])
 
-<div class="allergen-title" style="margin-top:0.6mm;">
+<div class="allergen-title" style="margin-top:6px;">
 PUÒ CONTENERE TRACCE DI
 </div>
 

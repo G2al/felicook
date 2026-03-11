@@ -17,11 +17,10 @@ body{
     padding:0;
     color:#111;
     font-size:7.6px;
-    line-height:1.15;
+    line-height:2.1;
 }
 
 .box{
-    border:1.4px solid #111;
     padding:2mm;
     box-sizing:border-box;
 }
