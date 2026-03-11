@@ -4,34 +4,34 @@
     <meta charset="utf-8">
     <title>Etichetta completa</title>
     <style>
-        @page { margin: 7mm; }
-        body { font-family: DejaVu Sans, sans-serif; font-size: 9px; color: #111; margin: 0; }
-        .sheet { border: 1px solid #9ca3af; padding: 7px; page-break-inside: avoid; }
+        @page { size: A4; margin: 10mm; }
+        body { font-family: DejaVu Sans, sans-serif; font-size: 10px; color: #111; margin: 0; padding: 0; }
+        .sheet { padding: 8mm; box-sizing: border-box; width: 100%; max-width: 100%; page-break-inside: avoid; }
         .header { width: 100%; border-collapse: collapse; }
         .header td { vertical-align: top; }
-        .logo-wrap { width: 185px; height: 46px; }
+        .logo-wrap { width: 220px; height: 60px; }
         .logo { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; }
-        .title { font-size: 19px; font-weight: 700; text-align: right; text-transform: uppercase; line-height: 1.05; }
-        .meta { margin-top: 1px; line-height: 1.25; }
+        .title { font-size: 24px; font-weight: 900; text-align: right; text-transform: uppercase; line-height: 1.05; word-break: break-word; }
+        .meta { margin-top: 2px; line-height: 1.3; }
         .meta strong { font-weight: 700; }
-        .section { margin-top: 6px; }
-        .section-title { margin-bottom: 3px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .25px; }
-        .desc { border: 1px solid #e5e7eb; background: #f9fafb; padding: 5px; line-height: 1.25; font-size: 8px; }
-        .allergen-box { border: 2px solid #111; padding: 5px; margin-top: 2px; page-break-inside: avoid; }
-        .allergen-row { margin-top: 4px; }
-        .allergen-label { font-weight: 700; font-size: 10px; text-transform: uppercase; }
-        .allergen-list { margin-top: 1px; font-weight: 700; font-size: 9.4px; line-height: 1.25; }
-        .icons { margin-top: 3px; }
-        .icon { display: inline-block; text-align: center; margin-right: 4px; margin-bottom: 4px; vertical-align: top; width: 38px; }
-        .icon img { width: 18px; height: 18px; object-fit: contain; display: block; margin: 0 auto 1px; }
-        .icon-code { font-size: 7px; font-weight: 700; }
-        .split { width: 100%; border-collapse: collapse; table-layout: fixed; margin-top: 6px; }
+        .section { margin-top: 12px; }
+        .section-title { margin-bottom: 4px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .25px; }
+        .desc { border: 1px solid #d1d5db; background: #f9fafb; padding: 9px; line-height: 1.4; font-size: 9.5px; }
+        .allergen-box { border: 2px solid #111; padding: 9px; margin-top: 6px; page-break-inside: avoid; }
+        .allergen-row { margin-top: 6px; }
+        .allergen-label { font-weight: 800; font-size: 11px; text-transform: uppercase; }
+        .allergen-list { margin-top: 2px; font-weight: 700; font-size: 10px; line-height: 1.3; }
+        .icons { margin-top: 5px; }
+        .icon { display: inline-block; text-align: center; margin-right: 7px; margin-bottom: 7px; vertical-align: top; width: 46px; }
+        .icon img { width: 22px; height: 22px; object-fit: contain; display: block; margin: 0 auto 2px; }
+        .icon-code { font-size: 8px; font-weight: 700; }
+        .split { width: 100%; border-collapse: collapse; table-layout: fixed; margin-top: 12px; }
         .split td { vertical-align: top; }
-        .split-left { width: 63%; padding-right: 6px; }
+        .split-left { width: 63%; padding-right: 12px; }
         .split-right { width: 37%; }
         .table { width: 100%; border-collapse: collapse; }
-        .table th, .table td { border-bottom: 1px solid #1f2937; padding: 2px 2px; font-size: 8px; }
-        .table th { text-align: left; font-weight: 700; }
+        .table th, .table td { border: 1px solid #1f2937; padding: 5px 5px; font-size: 9.2px; }
+        .table th { text-align: left; font-weight: 800; background: #f3f4f6; }
         .num { text-align: right; white-space: nowrap; }
     </style>
 </head>
@@ -132,6 +132,25 @@
                     @endforeach
                     </tbody>
                 </table>
+                @if (! empty($tabella_nutrizionale_porzione))
+                    <div class="section-title" style="margin-top: 10px;">Valori nutrizionali per porzione</div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Nutriente</th>
+                            <th class="num">Valore</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($tabella_nutrizionale_porzione as $riga)
+                            <tr>
+                                <td>{{ $riga['label'] }}</td>
+                                <td class="num">{{ number_format((float) $riga['value'], 2, ',', '.') }} {{ $riga['unit'] }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                @endif
             </td>
         </tr>
     </table>
