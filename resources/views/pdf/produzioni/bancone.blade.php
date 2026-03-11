@@ -12,10 +12,10 @@
 }
 
 body {
-    font-family: DejaVu Sans, sans-serif;
+    font-family: "Helvetica Neue", Arial, sans-serif;
     margin:0;
     color:#111;
-    font-size:9px;
+    font-size:11.5px;
 }
 
 /* CARD */
@@ -27,8 +27,6 @@ body {
     background:#fff;
 
     padding:3mm;
-
-    max-height:158mm;
 
     box-sizing:border-box;
 
@@ -50,20 +48,20 @@ body {
 }
 
 .logo-wrap {
-    width:48mm;
-    height:14mm;
+    width:30mm;
+    height:5mm;
 }
 
 .logo {
-    max-width:110%;
-    max-height:110%;
+    width:100%;
+    height:auto;
 }
 
 .name {
 
     text-align:right;
 
-    font-size:26px;
+    font-size:29px;
 
     font-weight:900;
 
@@ -77,7 +75,7 @@ body {
 
 .price-bar {
 
-    margin-top:12px;
+    margin-top:35px;
 
     border:2px solid #111;
 
@@ -85,7 +83,7 @@ body {
 
     padding:7px 9px;
 
-    font-size:23px;
+    font-size:25px;
 
     font-weight:900;
 
@@ -101,11 +99,45 @@ body {
 
     background:#f9fafb;
 
-    padding:8px;
+    padding:7px;
 
-    line-height:1.35;
+    line-height:1.38;
 
-    font-size:9px;
+    font-size:11px;
+
+}
+
+/* INGREDIENTI */
+
+.ingredients-box {
+
+    margin-top:16px;
+
+    border:1px solid #d1d5db;
+
+    background:#f9fafb;
+
+    padding:7px;
+
+    font-size:11px;
+
+    line-height:1.3;
+
+}
+
+.ingredients-title {
+
+    font-weight:900;
+
+    text-transform:uppercase;
+
+    font-size:12px;
+
+}
+
+.ingredients-text {
+
+    margin-top:16px;
 
 }
 
@@ -113,11 +145,11 @@ body {
 
 .allergen-box {
 
-    margin-top:16px;
+    margin-top:8px;
 
     border:2px solid #111;
 
-    padding:8px;
+    padding:6px;
 
     background:#fff7ed;
 
@@ -125,7 +157,7 @@ body {
 
 .allergen-title {
 
-    font-size:10px;
+    font-size:11px;
 
     font-weight:900;
 
@@ -137,7 +169,7 @@ body {
 
     margin-top:4px;
 
-    font-size:9.5px;
+    font-size:10.2px;
 
     font-weight:850;
 
@@ -157,7 +189,7 @@ body {
 
     display:inline-block;
 
-    width:36px;
+    width:34px;
 
     margin-right:6px;
 
@@ -168,50 +200,15 @@ body {
 .icon img {
 
     width:18px;
-
     height:18px;
 
 }
 
 .icon-code {
 
-    font-size:8px;
-
-    font-weight:750;
-
-}
-
-/* INGREDIENTI */
-
-.ingredients-box {
-
-    margin-top:16px;
-
-    border:1px solid #d1d5db;
-
-    background:#f9fafb;
-
-    padding:8px;
-
     font-size:8.8px;
 
-    line-height:1.3;
-
-}
-
-.ingredients-title {
-
-    font-weight:900;
-
-    text-transform:uppercase;
-
-    font-size:9px;
-
-}
-
-.ingredients-text {
-
-    margin-top:4px;
+    font-weight:750;
 
 }
 
@@ -221,7 +218,7 @@ body {
 
     margin-top:16px;
 
-    font-size:9px;
+    font-size:8.4px;
 
 }
 
@@ -273,6 +270,22 @@ body {
 
 </div>
 
+<div class="ingredients-box">
+
+<div class="ingredients-title">
+
+INGREDIENTI
+
+</div>
+
+<div class="ingredients-text">
+
+{{ $ingredienti_testo ?? 'N/D' }}
+
+</div>
+
+</div>
+
 <div class="allergen-box">
 
 <div class="allergen-title">CONTIENE ALLERGENI</div>
@@ -320,32 +333,6 @@ PUO CONTENERE TRACCE DI
 </div>
 
 @endif
-
-</div>
-
-<div class="ingredients-box">
-
-<div class="ingredients-title">
-
-INGREDIENTI
-
-</div>
-
-<div class="ingredients-text">
-
-{{ $ingredienti_testo ?? 'N/D' }}
-
-</div>
-
-</div>
-
-<div class="meta">
-
-<strong>Lotto:</strong> {{ $lotto }}
-
-|
-
-<strong>Scadenza:</strong> {{ $da_consumare_entro ?? 'N/D' }}
 
 </div>
 
