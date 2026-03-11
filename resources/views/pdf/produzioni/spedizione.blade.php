@@ -7,7 +7,7 @@
 <style>
 
 @page {
-    size: 100mm 95mm;
+     size: 103mm 164mm;
     margin: 2mm;
 }
 
