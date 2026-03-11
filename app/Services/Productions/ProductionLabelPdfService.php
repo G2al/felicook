@@ -36,7 +36,8 @@ class ProductionLabelPdfService
     {
         return match ($type) {
             ProductionLabelType::Completa => [0, 0, 595.28, 841.89],
-            ProductionLabelType::Bancone => [0, 0, 595.28, 420.94],
+            // 103mm x 164mm label roll
+            ProductionLabelType::Bancone => [0, 0, 292.17, 465.89],
             ProductionLabelType::ConfezioneMini => [0, 0, 175.75, 86.40],
             ProductionLabelType::Spedizione => [0, 0, 283.46, 198.43],
         };
