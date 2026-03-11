@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <title>Etichetta mini</title>
     <style>
-        @page { size: 62mm 30.48mm; margin: 1mm; }
-        body { font-family: DejaVu Sans, sans-serif; margin: 0; color: #111; font-size: 4.8px; line-height: 1.08; }
-        .box { border: 1px solid #111; padding: 0.9mm; box-sizing: border-box; }
-        .name { font-size: 6.2px; font-weight: 700; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .line { margin-top: 0.3mm; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .allergen-title { margin-top: 0.6mm; font-weight: 700; text-transform: uppercase; }
-        .allergen-text { font-size: 4.5px; font-weight: 700; line-height: 1.1; white-space: normal; word-break: break-word; }
-        .icons { margin-top: 0.2mm; max-height: 4.2mm; overflow: hidden; }
-        .icon { display: inline-block; width: 3mm; height: 3mm; margin-right: 0.35mm; vertical-align: middle; }
+        @page { size: 62mm 29mm; margin: 1.2mm; }
+        body { font-family: DejaVu Sans, sans-serif; margin: 0; color: #111; font-size: 7px; line-height: 1.15; }
+        .box { border: 1.4px solid #111; padding: 1.2mm; box-sizing: border-box; height: 22mm; }
+        .name { font-size: 11px; font-weight: 900; text-transform: uppercase; line-height: 1.05; }
+        .line { margin-top: 0.6mm; font-size: 7.6px; font-weight: 700; }
+        .allergen-title { margin-top: 1mm; font-weight: 800; font-size: 8.4px; text-transform: uppercase; }
+        .allergen-text { font-size: 7.2px; font-weight: 700; line-height: 1.15; }
+        .icons { margin-top: 0.8mm; }
+        .icon { display: inline-block; width: 10px; height: 10px; margin-right: 2px; vertical-align: middle; }
         .icon img { width: 100%; height: 100%; object-fit: contain; }
     </style>
 </head>
