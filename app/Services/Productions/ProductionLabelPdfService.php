@@ -38,8 +38,8 @@ class ProductionLabelPdfService
             ProductionLabelType::Completa => [0, 0, 595.28, 841.89],
             // 103mm x 164mm label roll
             ProductionLabelType::Bancone => [0, 0, 292.17, 465.89],
-            // 62mm x 29mm label
-            ProductionLabelType::ConfezioneMini => [0, 0, 175.75, 82.21],
+            // 60mm x 60mm label
+            ProductionLabelType::ConfezioneMini => [0, 0, 170.08, 170.08],
             ProductionLabelType::Spedizione => [0, 0, 283.46, 198.43],
         };
     }
