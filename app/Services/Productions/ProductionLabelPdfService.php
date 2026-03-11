@@ -19,7 +19,9 @@ class ProductionLabelPdfService
     public function stream(ProductionBatch $productionBatch, ProductionLabelType $type): Response
     {
         $data = $this->productionLabelDataService->build($productionBatch);
+
         $view = $type->view();
+
         $fileName = sprintf(
             '%s-%s-%s.pdf',
             Str::slug($type->label(), '-'),
@@ -35,12 +37,17 @@ class ProductionLabelPdfService
     protected function paper(ProductionLabelType $type): array
     {
         return match ($type) {
-            ProductionLabelType::Completa => [0, 0, 595.28, 841.89],
-            // 103mm x 164mm label roll
-            ProductionLabelType::Bancone => [0, 0, 292.17, 465.89],
-            // 60mm x 60mm label
-            ProductionLabelType::ConfezioneMini => [0, 0, 170.08, 170.08],
-            ProductionLabelType::Spedizione => [0, 0, 283.46, 198.43],
+
+            ProductionLabelType::Completa => [0,0,595.28,841.89],
+
+            // 103mm x 164mm
+            ProductionLabelType::Bancone => [0,0,292.17,465.89],
+
+            // 60mm x 60mm
+            ProductionLabelType::ConfezioneMini => [0,0,171,171],
+
+            ProductionLabelType::Spedizione => [0,0,283.46,198.43],
+
         };
     }
 }

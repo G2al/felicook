@@ -24,8 +24,6 @@ body{
     border:1.4px solid #111;
     padding:2mm;
     box-sizing:border-box;
-    width:56mm;
-    margin:2mm;
 }
 
 .name{
