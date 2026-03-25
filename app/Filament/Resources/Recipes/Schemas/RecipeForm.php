@@ -7,6 +7,7 @@ namespace App\Filament\Resources\Recipes\Schemas;
 use App\Models\Unit;
 use App\Services\Recipes\RecipeFoodCostService;
 use App\Services\Recipes\RecipeIngredientSourceService;
+use App\Services\Recipes\RecipeIngredientNoteService;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Repeater;
@@ -65,9 +66,10 @@ class RecipeForm
                                     ->required(),
                             ]),
                         Textarea::make('description')
-                            ->label('Descrizione')
+                            ->label('Descrizione ingredienti (auto)')
                             ->rows(6)
-                            ->columnSpanFull(),
+                            ->disabled()
+                            ->dehydrated(),
                     ]),
                 Section::make('Materie prime')
                     ->columnSpanFull()

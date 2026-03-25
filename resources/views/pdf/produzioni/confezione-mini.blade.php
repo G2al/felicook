@@ -8,7 +8,7 @@
 
 @page {
     size: 60mm 60mm;
-    margin: 0;
+    margin: 0 0 0 3mm;
 }
 
 body{

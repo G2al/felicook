@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /c/Users/giomm/Desktop/my-project/felicook/resources/views -name *etichetta* -o -name *label*)"
+    ]
+  }
+}
